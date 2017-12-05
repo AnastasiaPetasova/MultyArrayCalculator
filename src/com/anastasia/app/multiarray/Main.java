@@ -1,6 +1,8 @@
 package com.anastasia.app.multiarray;
 
+import com.anastasia.app.multiarray.eval.Environment;
 import com.anastasia.app.multiarray.eval.MultiArrayEnvironment;
+import com.anastasia.app.multiarray.validation.EvaluationException;
 
 import java.util.Scanner;
 
@@ -12,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        MultiArrayEnvironment environment = MultiArrayEnvironment.create();
+        Environment environment = MultiArrayEnvironment.create();
 
         evaluation:
         while (true) {
@@ -33,7 +35,14 @@ public class Main {
                         break;
                 }
             } else {
-
+                try {
+                    Object result = environment.process(line);
+                    if (result != null) {
+                        System.out.println(result);
+                    }
+                } catch (EvaluationException ex) {
+                    System.out.println(ex.getLocalizedMessage());
+                }
             }
         }
     }
