@@ -50,6 +50,6 @@ public class MultiArrayNumber extends MultyArrayImpl {
 
     @Override
     public int length() {
-        return -1;
+        return 0;
     }
 }

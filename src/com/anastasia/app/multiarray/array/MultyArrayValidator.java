@@ -18,7 +18,7 @@ public class MultyArrayValidator {
             throw new MultiArrayException(
                     String.format(
                             "Индекс выходит за границы массива: [%d; %d], но индекс %d",
-                            1, length, index + 1
+                            0, length - 1, index
                     )
             );
         }
