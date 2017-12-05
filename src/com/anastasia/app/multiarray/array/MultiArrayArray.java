@@ -14,7 +14,7 @@ public class MultiArrayArray extends MultiArrayImpl {
     protected MultiArray addWithoutValidation(MultiArray other) throws MultiArrayException {
         MultiArray result = new MultiArrayArray(length());
         for (int index = 0, length = length(); index < length; ++index) {
-            MultiArray indexResult = this.get(index).add(other.get(index));
+            MultiArray indexResult = getWithoutValidation(index).add(other.get(index));
             result.set(index, indexResult);
         }
 
@@ -25,7 +25,7 @@ public class MultiArrayArray extends MultiArrayImpl {
     protected MultiArray subtractWithoutValidation(MultiArray other) throws MultiArrayException {
         MultiArray result = new MultiArrayArray(length());
         for (int index = 0, length = length(); index < length; ++index) {
-            MultiArray indexResult = this.get(index).subtract(other.get(index));
+            MultiArray indexResult = getWithoutValidation(index).subtract(other.get(index));
             result.set(index, indexResult);
         }
 
@@ -36,7 +36,7 @@ public class MultiArrayArray extends MultiArrayImpl {
     protected MultiArray multiplyWithoutValidation(MultiArray other) throws MultiArrayException {
         MultiArray result = new MultiArrayArray(length());
         for (int index = 0, length = length(); index < length; ++index) {
-            MultiArray indexResult = this.get(index).multiply(other);
+            MultiArray indexResult = getWithoutValidation(index).multiply(other);
             result.set(index, indexResult);
         }
 
@@ -56,5 +56,23 @@ public class MultiArrayArray extends MultiArrayImpl {
     @Override
     public void setWithoutValidation(int index, MultiArray value) {
         values[index] = value;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append('[');
+
+        for (int index = 0, length = length(); index < length; ++index) {
+            if (index > 0) stringBuilder.append(' ');
+
+            String elementString = getWithoutValidation(index).toString();
+            stringBuilder.append(elementString);
+        }
+
+        stringBuilder.append(']');
+
+        return stringBuilder.toString();
     }
 }

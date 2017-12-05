@@ -54,4 +54,9 @@ public class MultiArrayNumber extends MultiArrayImpl {
     public int length() {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
 }
