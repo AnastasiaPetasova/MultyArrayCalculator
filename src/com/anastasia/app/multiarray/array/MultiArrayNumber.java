@@ -1,8 +1,10 @@
 package com.anastasia.app.multiarray.array;
 
+import com.anastasia.app.multiarray.validation.MultiArrayException;
+
 import java.math.BigInteger;
 
-public class MultiArrayNumber extends MultyArrayImpl {
+public class MultiArrayNumber extends MultiArrayImpl {
 
     BigInteger value;
 

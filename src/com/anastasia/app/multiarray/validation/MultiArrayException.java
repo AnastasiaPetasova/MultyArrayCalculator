@@ -1,4 +1,4 @@
-package com.anastasia.app.multiarray.array;
+package com.anastasia.app.multiarray.validation;
 
 public class MultiArrayException extends Exception {
 

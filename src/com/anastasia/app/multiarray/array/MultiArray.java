@@ -1,5 +1,7 @@
 package com.anastasia.app.multiarray.array;
 
+import com.anastasia.app.multiarray.validation.MultiArrayException;
+
 public interface MultiArray {
 
     MultiArray add(MultiArray other) throws MultiArrayException;

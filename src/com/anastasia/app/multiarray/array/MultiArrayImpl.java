@@ -1,12 +1,15 @@
 package com.anastasia.app.multiarray.array;
 
-public abstract class MultyArrayImpl implements MultiArray {
+import com.anastasia.app.multiarray.validation.MultiArrayException;
+import com.anastasia.app.multiarray.validation.MultiArrayValidator;
+
+public abstract class MultiArrayImpl implements MultiArray {
 
     protected abstract MultiArray addWithoutValidation(MultiArray other) throws MultiArrayException;
 
     @Override
     public MultiArray add(MultiArray other) throws MultiArrayException {
-        MultyArrayValidator.assertEqualLength(this, other);
+        MultiArrayValidator.assertEqualLength(this, other);
         return addWithoutValidation(other);
     }
 
@@ -14,7 +17,7 @@ public abstract class MultyArrayImpl implements MultiArray {
 
     @Override
     public MultiArray subtract(MultiArray other) throws MultiArrayException {
-        MultyArrayValidator.assertEqualLength(this, other);
+        MultiArrayValidator.assertEqualLength(this, other);
         return subtractWithoutValidation(other);
     }
 
@@ -27,13 +30,13 @@ public abstract class MultyArrayImpl implements MultiArray {
 
     @Override
     public MultiArray get(int index) throws MultiArrayException {
-        MultyArrayValidator.assertIndexInRange(length(), index);
+        MultiArrayValidator.assertIndexInRange(length(), index);
         return getWithoutValidation(index);
     }
 
     @Override
     public void set(int index, MultiArray value) throws MultiArrayException {
-        MultyArrayValidator.assertIndexInRange(length(), index);
+        MultiArrayValidator.assertIndexInRange(length(), index);
         setWithoutValidation(index, value);
     }
 

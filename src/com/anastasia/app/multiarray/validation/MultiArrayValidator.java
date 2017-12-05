@@ -1,6 +1,8 @@
-package com.anastasia.app.multiarray.array;
+package com.anastasia.app.multiarray.validation;
 
-public class MultyArrayValidator {
+import com.anastasia.app.multiarray.array.MultiArray;
+
+public class MultiArrayValidator {
 
     public static void assertEqualLength(MultiArray first, MultiArray second) throws MultiArrayException {
         if (first.length() != second.length()) {

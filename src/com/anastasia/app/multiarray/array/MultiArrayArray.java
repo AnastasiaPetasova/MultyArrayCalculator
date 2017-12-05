@@ -1,6 +1,8 @@
 package com.anastasia.app.multiarray.array;
 
-public class MultiArrayArray extends MultyArrayImpl {
+import com.anastasia.app.multiarray.validation.MultiArrayException;
+
+public class MultiArrayArray extends MultiArrayImpl {
 
     private final MultiArray[] values;
 
