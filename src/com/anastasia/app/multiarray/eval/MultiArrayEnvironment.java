@@ -7,30 +7,36 @@ import com.anastasia.app.multiarray.validation.EvaluationValidator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MultiArrayEnvironment {
+public class MultiArrayEnvironment implements Environment {
 
     public static MultiArrayEnvironment create() {
         return new MultiArrayEnvironment();
     }
 
-    Map<String, MultiArray> variables;
+    private final Map<String, MultiArray> variables;
 
     private MultiArrayEnvironment() {
         this.variables = new HashMap<>();
     }
 
+    @Override
     public void clear() {
         this.variables.clear();
     }
 
-    public MultiArray get(String name) throws EvaluationException {
+    @Override
+    public Object process(String line) throws EvaluationException {
+        throw new UnsupportedOperationException();
+    }
+
+    protected MultiArray get(String name) throws EvaluationException {
         MultiArray value = variables.get(name);
         EvaluationValidator.assertVariableExists(value, name);
 
         return value;
     }
 
-    public void set(String name, MultiArray value) {
+    protected void set(String name, MultiArray value) {
         variables.put(name, value);
     }
 
