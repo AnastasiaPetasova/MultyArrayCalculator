@@ -33,4 +33,32 @@ public class MultiArrayEnvironment {
     public void set(String name, MultiArray value) {
         variables.put(name, value);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        int size = variables.size();
+        stringBuilder.append(
+                String.format(
+                        "Количество переменных = %d",
+                        size
+                )
+        );
+
+        for (Map.Entry<String, MultiArray> variableEntry : variables.entrySet()) {
+            String name = variableEntry.getKey();
+            MultiArray value = variableEntry.getValue();
+
+            stringBuilder.append('\n');
+            stringBuilder.append(
+                String.format(
+                        "%s = %s",
+                        name, value.toString()
+                )
+            );
+        }
+
+        return stringBuilder.toString();
+    }
 }
