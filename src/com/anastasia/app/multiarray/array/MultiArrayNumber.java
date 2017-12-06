@@ -63,4 +63,13 @@ public class MultiArrayNumber extends MultiArrayImpl {
     public String toString() {
         return value.toString();
     }
+
+    @Override
+    public MultiArrayNumber clone() throws CloneNotSupportedException {
+        MultiArrayNumber cloned = (MultiArrayNumber) super.clone();
+
+        cloned.value = value;
+
+        return cloned;
+    }
 }

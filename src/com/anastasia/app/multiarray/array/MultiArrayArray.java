@@ -4,7 +4,7 @@ import com.anastasia.app.multiarray.validation.MultiArrayException;
 
 public class MultiArrayArray extends MultiArrayImpl {
 
-    private final MultiArray[] values;
+    private MultiArray[] values;
 
     public MultiArrayArray(int length) {
         this.values = new MultiArray[length];
@@ -74,5 +74,18 @@ public class MultiArrayArray extends MultiArrayImpl {
         stringBuilder.append(']');
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public MultiArrayArray clone() throws CloneNotSupportedException {
+        MultiArrayArray cloned = (MultiArrayArray) super.clone();
+
+        cloned.values = new MultiArray[length()];
+        for (int i = 0; i < length(); ++i) {
+            MultiArray itemCloned = getWithoutValidation(i).clone();
+            cloned.setWithoutValidation(i, itemCloned);
+        }
+
+        return cloned;
     }
 }

@@ -47,4 +47,9 @@ public abstract class MultiArrayImpl implements MultiArray {
     protected void setWithoutValidation(int index, MultiArray value) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public MultiArray clone() throws CloneNotSupportedException {
+        return (MultiArray) super.clone();
+    }
 }

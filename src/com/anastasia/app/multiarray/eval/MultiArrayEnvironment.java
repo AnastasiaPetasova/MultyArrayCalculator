@@ -51,6 +51,19 @@ public class MultiArrayEnvironment implements Environment {
 
             EvaluationValidator.assertAssignmentPossible(leftReference, assignmentParts[index - 1], rightValue);
 
+            if (assignmentValues[index].name != null && rightValue != null) {
+                try {
+                    rightValue = rightValue.clone();
+                } catch (CloneNotSupportedException e) {
+                    throw new EvaluationException(
+                            String.format(
+                                    "Значение не может быть скопировано: %s",
+                                    rightValue.toString()
+                            )
+                    );
+                }
+            }
+
             leftReference.set(this, rightValue);
         }
 

@@ -54,7 +54,7 @@ public class MultiArrayParser {
             String additiveOperation = (
                     end == length
                     ? ""
-                    : additivePart.substring(end, end + operationLength)
+                    : assignmentPart.substring(end, end + operationLength)
             );
 
             MultiArrayReference additiveValue = parseAdditivePart(additivePart);
@@ -94,11 +94,11 @@ public class MultiArrayParser {
         Deque<String> multiplyOperations = new ArrayDeque<>();
 
         for (int start = 0, length = additivePart.length(); start < length; ) {
-            int multiplyIndex = additivePart.indexOf(MULTIPLY);
+            int multiplyIndex = additivePart.indexOf(MULTIPLY, start);
 
             if (multiplyIndex < 0) multiplyIndex = length;
 
-            int operationLength = 0;
+            int operationLength;
             int end;
 
             {
@@ -279,6 +279,20 @@ public class MultiArrayParser {
         for (int i = 0; i < size; ++i) {
             String partString = partStrings.get(i);
             MultiArrayReference innerValue = parseValuePart(partString);
+
+            if (innerValue.name != null && innerValue.get() != null) {
+                try {
+                    innerValue.value = innerValue.value.clone();
+                } catch (CloneNotSupportedException e) {
+                    throw new EvaluationException(
+                            String.format(
+                                    "Значение не может быть скопировано: %s",
+                                    innerValue.value.toString()
+                            )
+                    );
+                }
+            }
+
             value.set(i, innerValue.get());
         }
 
