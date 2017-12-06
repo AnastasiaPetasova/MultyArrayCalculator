@@ -36,6 +36,8 @@ public class Main {
                 }
             } else {
                 try {
+                    if (line.isEmpty()) continue;
+
                     Object result = environment.process(line);
                     if (result != null) {
                         System.out.println(result);

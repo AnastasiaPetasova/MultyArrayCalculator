@@ -13,10 +13,12 @@ public class MultiArrayEnvironment implements Environment {
         return new MultiArrayEnvironment();
     }
 
+    private final MultiArrayParser parser;
     private final Map<String, MultiArray> variables;
 
     private MultiArrayEnvironment() {
         this.variables = new HashMap<>();
+        this.parser = new MultiArrayParser(this);
     }
 
     @Override
@@ -24,20 +26,40 @@ public class MultiArrayEnvironment implements Environment {
         this.variables.clear();
     }
 
-    @Override
-    public Object process(String line) throws EvaluationException {
-        throw new UnsupportedOperationException();
-    }
-
-    protected MultiArray get(String name) throws EvaluationException {
+    protected MultiArray getVariable(String name) throws EvaluationException {
         MultiArray value = variables.get(name);
-        EvaluationValidator.assertVariableExists(value, name);
 
         return value;
     }
 
     protected void set(String name, MultiArray value) {
         variables.put(name, value);
+    }
+
+    @Override
+    public Object process(String line) throws EvaluationException {
+        String[] assignmentParts = line.split(MultiArrayParser.ASSIGN);
+        MultiArrayReference[] assignmentValues = new MultiArrayReference[assignmentParts.length];
+
+        for (int i = 0; i < assignmentParts.length; ++i) {
+            assignmentValues[i] = parser.parseAssignmentPart(assignmentParts[i]);
+        }
+
+        for (int index = assignmentParts.length - 1; index > 0; --index) {
+            MultiArray rightValue = assignmentValues[index].get();
+            MultiArrayReference leftReference = assignmentValues[index - 1];
+
+            EvaluationValidator.assertAssignmentPossible(leftReference, assignmentParts[index - 1], rightValue);
+
+            leftReference.set(this, rightValue);
+        }
+
+        if (assignmentParts.length == 1) {
+            MultiArray value = assignmentValues[0].get();
+            return ( value == null ? "Значение не найдено" : value.toString());
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -55,6 +77,8 @@ public class MultiArrayEnvironment implements Environment {
         for (Map.Entry<String, MultiArray> variableEntry : variables.entrySet()) {
             String name = variableEntry.getKey();
             MultiArray value = variableEntry.getValue();
+
+            if (value == null) continue;
 
             stringBuilder.append('\n');
             stringBuilder.append(

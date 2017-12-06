@@ -8,8 +8,12 @@ public class MultiArrayNumber extends MultiArrayImpl {
 
     BigInteger value;
 
-    MultiArrayNumber(BigInteger value) {
+    public MultiArrayNumber(BigInteger value) {
         this.value = value;
+    }
+
+    public BigInteger getValue() {
+        return value;
     }
 
     @Override
