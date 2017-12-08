@@ -27,13 +27,17 @@ public class MultiArrayEnvironment implements Environment {
     }
 
     protected MultiArray getVariable(String name) throws EvaluationException {
-        MultiArray value = variables.get(name);
+        if (name == null) return null;
+
+        MultiArray value = variables.get(name.toUpperCase());
 
         return value;
     }
 
     protected void set(String name, MultiArray value) {
-        variables.put(name, value);
+        if (name == null) return;
+
+        variables.put(name.toUpperCase(), value);
     }
 
     @Override
