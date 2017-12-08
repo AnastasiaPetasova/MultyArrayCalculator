@@ -39,6 +39,7 @@ public class MultiArrayReference {
     public void set(MultiArrayEnvironment environment, MultiArray innerValue) throws EvaluationException {
         if (index == -1) {
             environment.set(name, innerValue);
+            value = innerValue;
         } else {
             value.set(index, innerValue);
         }
