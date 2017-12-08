@@ -22,7 +22,7 @@ public class Main {
             if (line == null) break;
 
             if (line.startsWith(META_COMMAND_PREFIX)) {
-                String command = line.substring(META_COMMAND_PREFIX.length());
+                String command = line.substring(META_COMMAND_PREFIX.length()).toLowerCase();
                 switch (command) {
                     case CLEAR:
                         environment.clear();
